@@ -203,7 +203,7 @@ it('marca ambos checkbox depois desmarca o último', () => {
   .invoke('val', 'um texto qualquer')
   .should('have.value', 'um texto qualquer')
 })
-it.only('faz uma requisição HTTP', () => {
+it('faz uma requisição HTTP', () => {
   cy.request('https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html')
     .as('getRequest')
     .its('status')
@@ -213,8 +213,16 @@ it.only('faz uma requisição HTTP', () => {
     .should('be.equal', 'OK')
   cy.get('@getRequest')
     .its('body')
-    .should('include', 'cat')
-
+    .should('include', 'CAC TAT')
+})
+it('encontra o gato escondido', () => {
+  cy.get('#cat')
+    .invoke('show')
+    .should('be.visible')
+  cy.get('#title')
+    .invoke('text', 'CAT TAT')
+  cy.get('#subtitle')
+    .invoke('text', 'Eu amo gatos')
 })
 
 })
